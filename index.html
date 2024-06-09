@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Get Raspberries</title>
+    <link
+      rel="icon"
+      type="image/png"
+      href="./assets/getraspberries_logo_transparent.png"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family: "Montserrat", sans-serif;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        margin: 0;
+        /* background-image: url("./assets/background.png"); */
+        background-size: cover;
+        background-position: center;
+        overflow: hidden;
+      }
+      .container {
+        text-align: center;
+        padding: 20px;
+        background-color: #d8c0a6;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        position: relative;
+        z-index: 1;
+      }
+      .description {
+        margin-bottom: 20px;
+        font-size: 18px;
+        color: #820b41;
+        font-weight: bold;
+        text-transform: uppercase;
+      }
+      .buttons {
+        display: flex;
+        justify-content: center;
+        gap: 10px;
+        margin-top: 20px;
+      }
+      .button {
+        padding: 10px 20px;
+        color: #fff;
+        background-color: #7faf65;
+        border: none;
+        border-radius: 4px;
+        text-decoration: none;
+        font-size: 16px;
+        transition: background-color 0.3s;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+      .button i {
+        font-size: 20px;
+      }
+      .button:hover {
+        background-color: #3f6335;
+      }
+      .logo {
+        max-width: 150px;
+        height: auto;
+        margin-bottom: 20px;
+        cursor: pointer;
+      }
+      .raining-logos {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        overflow: hidden;
+        z-index: 0;
+      }
+      .logo-small {
+        position: absolute;
+        width: 30px;
+        height: auto;
+        animation: fall linear infinite;
+        opacity: 0.7;
+      }
+      .counter {
+        font-size: 20px;
+        margin-bottom: 10px;
+        color: #ffffff;
+        display: none;
+      }
+      @keyframes fall {
+        0% {
+          transform: translateY(-150px);
+        }
+        100% {
+          transform: translateY(110vh);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="counter" id="counter">Clicks: 0</div>
+      <img
+        src="./assets/getraspberries_logo_transparent.png"
+        alt="Raspberry Game Logo"
+        class="logo"
+        id="main-logo"
+      />
+      <p class="description">
+        Join the raspberry army in the attack against the bananas!
+      </p>
+      <div class="buttons">
+        <a href="https://store.steampowered.com/" class="button"
+          ><i class="fab fa-steam"></i>Download Free on Steam</a
+        >
+        <a href="https://discord.gg/UfPTQhcQax" class="button"
+          ><i class="fab fa-discord"></i>Join our Discord</a
+        >
+      </div>
+    </div>
+    <div class="raining-logos" id="raining-logos"></div>
+
+    <script>
+      function createRainingLogos() {
+        const container = document.getElementById("raining-logos");
+        const logoCount = 500;
+        for (let i = 0; i < logoCount; i++) {
+          const logo = document.createElement("img");
+          logo.src = "./assets/getraspberries_logo_transparent.png";
+          logo.className = "logo-small";
+          logo.style.left = Math.random() * 100 + "vw";
+          logo.style.top = Math.random() * -150 + "px";
+          logo.style.animationDuration = Math.random() * 3 + 2 + "s";
+          logo.style.animationDelay = Math.random() * 5 + "s";
+          container.appendChild(logo);
+        }
+      }
+
+      let clickCount = 0;
+
+      document
+        .getElementById("main-logo")
+        .addEventListener("click", function () {
+          clickCount++;
+          const counter = document.getElementById("counter");
+          counter.style.display = "block";
+          counter.innerText = clickCount;
+          if (clickCount === 2) {
+            window.location.href = "https://store.steampowered.com/";
+          }
+        });
+
+      createRainingLogos();
+    </script>
+  </body>
+</html>
