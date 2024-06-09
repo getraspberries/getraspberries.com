@@ -17,6 +17,34 @@
       href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap"
       rel="stylesheet"
     />
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Get Raspberries - Join the Fight!" />
+    <meta
+      property="og:description"
+      content="Join the raspberry army in the attack against the bananas!"
+    />
+    <meta
+      property="og:image"
+      content="./assets/getraspberries_logo_transparent_with_blaster.png"
+    />
+    <meta property="og:url" content="https://getraspberries.com" />
+    <meta property="og:type" content="website" />
+
+    <!-- Twitter Meta Tags -->
+    <meta
+      name="twitter:card"
+      content="./assets/getraspberries_logo_transparent_with_blaster.png"
+    />
+    <meta name="twitter:title" content="Get Raspberries - Join the Fight!" />
+    <meta
+      name="twitter:description"
+      content="Join the raspberry army in the attack against the bananas!"
+    />
+    <meta
+      name="twitter:image"
+      content="./assets/getraspberries_logo_transparent_with_blaster.png"
+    />
     <style>
       body {
         font-family: "Montserrat", sans-serif;
@@ -26,7 +54,6 @@
         justify-content: center;
         height: 100vh;
         margin: 0;
-        /* background-image: url("./assets/background.png"); */
         background-size: cover;
         background-position: center;
         overflow: hidden;
@@ -73,7 +100,13 @@
       .button:hover {
         background-color: #3f6335;
       }
-      .logo {
+      .banana-logo {
+        max-width: 100px;
+        height: auto;
+        margin-bottom: 20px;
+        cursor: pointer;
+      }
+      .raspberry-logo {
         max-width: 150px;
         height: auto;
         margin-bottom: 20px;
@@ -116,19 +149,25 @@
     <div class="container">
       <div class="counter" id="counter">Clicks: 0</div>
       <img
-        src="./assets/getraspberries_logo_transparent.png"
+        src="./assets/dead_banana.gif"
+        alt="Dead Banana"
+        class="banana-logo"
+        id="banana-logo"
+      />
+      <img
+        src="./assets/getraspberries_logo_transparent_with_blaster.png"
         alt="Raspberry Game Logo"
-        class="logo"
-        id="main-logo"
+        class="raspberry-logo"
+        id="raspberry-logo"
       />
       <p class="description">
         Join the raspberry army in the attack against the bananas!
       </p>
       <div class="buttons">
         <a href="https://store.steampowered.com/" class="button"
-          ><i class="fab fa-steam"></i>Download Free on Steam</a
+          ><i class="fab fa-steam"></i>Play FREE on Steam</a
         >
-        <a href="https://discord.gg/UfPTQhcQax" class="button"
+        <a href="https://discord.gg/getraspberries" class="button"
           ><i class="fab fa-discord"></i>Join our Discord</a
         >
       </div>
@@ -154,7 +193,7 @@
       let clickCount = 0;
 
       document
-        .getElementById("main-logo")
+        .getElementById("raspberry-logo")
         .addEventListener("click", function () {
           clickCount++;
           const counter = document.getElementById("counter");
