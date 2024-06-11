@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Raspberry Database</title>
+    <link
+      rel="icon"
+      type="image/png"
+      href="./assets/getraspberries_logo_transparent.png"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Raspberry Database" />
+    <meta
+      property="og:description"
+      content="Search for your favorite raspberries!"
+    />
+    <meta
+      property="og:image"
+      content="./assets/getraspberries_logo_transparent.png"
+    />
+    <meta property="og:url" content="https://getraspberries.com" />
+    <meta property="og:type" content="website" />
+
+    <!-- Twitter Meta Tags -->
+    <meta
+      name="twitter:card"
+      content="./assets/getraspberries_logo_transparent.png"
+    />
+    <meta name="twitter:title" content="Raspberry Database" />
+    <meta
+      name="twitter:description"
+      content="Search for your favorite raspberries!"
+    />
+    <meta
+      name="twitter:image"
+      content="./assets/getraspberries_logo_transparent_with_blaster.png"
+    />
+    <style>
+      body {
+        font-family: "Montserrat", sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f5f5f5;
+        position: relative;
+        overflow: hidden;
+      }
+      .header {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 10px 0;
+        position: relative;
+      }
+      .header-content {
+        display: flex;
+        align-items: center;
+      }
+      .raspberry-logo-top {
+        max-width: 50px;
+        margin-right: 10px;
+      }
+      .page-title {
+        font-size: 24px;
+        font-weight: bold;
+      }
+      .filters {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 20px;
+        background-color: #d8c0a6;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        margin: 20px auto;
+        width: 90%;
+        flex-wrap: wrap;
+      }
+      .search-group {
+        flex: 1;
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: flex-start;
+        position: relative;
+      }
+      .search-group label {
+        display: flex;
+        align-items: center;
+        margin-bottom: 5px;
+        font-weight: bold;
+      }
+      .search-group label i {
+        margin-right: 5px;
+      }
+      .search-group input[type="text"] {
+        width: 80%;
+        max-width: 700px;
+        padding: 12px;
+        border: 1px solid #ccc;
+        border-radius: 25px;
+        font-size: 16px;
+        margin-top: 5px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+      }
+      .search-group input[type="text"]:focus {
+        outline: none;
+        border-color: #7faf65;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+      }
+      .search-group .clear-icon {
+        position: absolute;
+        right: 15%;
+        top: 50%;
+        transform: translateY(-50%);
+        font-size: 18px;
+        cursor: pointer;
+        color: #999;
+        display: none;
+      }
+      .search-group input[type="text"]:not(:placeholder-shown) + .clear-icon {
+        display: block;
+      }
+      .filter-group {
+        display: flex;
+        flex-direction: column;
+        margin: 10px;
+        align-items: flex-start; /* Left-justified the labels */
+      }
+      .filter-group label {
+        font-weight: bold;
+      }
+      .filter-group select,
+      .filter-group input[type="number"],
+      .filter-group input[type="date"] {
+        width: 150px; /* Made the date added box longer */
+        padding: 12px;
+        border: 1px solid #ccc;
+        border-radius: 25px;
+        font-size: 16px;
+        margin-top: 5px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+      }
+      .filter-group select:focus,
+      .filter-group input[type="number"]:focus,
+      .filter-group input[type="date"]:focus {
+        outline: none;
+        border-color: #7faf65;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+      }
+      .filter-group .checkbox-group {
+        display: flex;
+        flex-wrap: wrap;
+      }
+      .filter-group .checkbox-group label {
+        margin-right: 10px;
+        display: flex;
+        align-items: center;
+        font-weight: normal;
+      }
+      .filter-group .checkbox-group input {
+        margin-right: 5px;
+      }
+      .filter-group i {
+        margin-right: 5px;
+      }
+      .cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+        gap: 20px;
+        margin: 20px;
+        position: relative;
+        z-index: 1;
+        max-height: 70vh; /* Make the cards section scrollable */
+        overflow-y: auto;
+      }
+      .card {
+        background-color: #fff;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 25px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        position: relative;
+      }
+      .card.discontinued {
+        filter: grayscale(100%);
+      }
+      .card img {
+        max-width: 100%;
+        height: auto;
+        border-radius: 8px;
+      }
+      .card .name {
+        font-size: 18px;
+        font-weight: bold;
+        margin: 10px 0;
+        position: relative; /* Add position relative */
+      }
+      .card .description {
+        font-size: 14px;
+        color: #666;
+      }
+      .card .rarity-badge {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        padding: 5px 10px;
+        border-radius: 12px;
+        color: #fff;
+        font-size: 12px;
+      }
+      .card .favorite {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        font-size: 24px;
+        cursor: pointer;
+      }
+      .card .info-icon {
+        position: absolute;
+        top: 50%;
+        left: 100%;
+        transform: translateY(-50%);
+        font-size: 16px;
+        cursor: pointer;
+        color: #999;
+      }
+      .card .tooltip {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: #fff;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        padding: 10px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        font-size: 12px;
+        color: #333;
+        z-index: 10;
+        white-space: nowrap;
+      }
+      .card .info-icon:hover + .tooltip,
+      .card .tooltip:hover {
+        display: block;
+      }
+      .common {
+        background-color: #d3d3d3;
+      }
+      .rare {
+        background-color: #4169e1;
+      }
+      .epic {
+        background-color: #9932cc;
+      }
+      .legendary {
+        background-color: #ffd700;
+      }
+      .raining-logos {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        overflow: hidden;
+        z-index: 0;
+      }
+      .logo-small {
+        position: absolute;
+        width: 30px;
+        height: auto;
+        animation: fall 15s linear infinite;
+        opacity: 0.7;
+      }
+      @keyframes fall {
+        0% {
+          top: -50px;
+        }
+        100% {
+          top: 100vh;
+        }
+      }
+      .multi-select {
+        position: relative;
+      }
+      .multi-select .select-box {
+        position: relative;
+        display: block;
+        width: 150px;
+        padding: 12px;
+        border: 1px solid #ccc;
+        border-radius: 25px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        cursor: pointer;
+        transition: all 0.3s ease;
+        background-color: #fff;
+        user-select: none;
+      }
+      .multi-select .select-box:focus {
+        outline: none;
+        border-color: #7faf65;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+      }
+      .multi-select .select-box .selected {
+        display: block;
+      }
+      .multi-select .select-box .chevron {
+        position: absolute;
+        right: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+      }
+      .multi-select .options-container {
+        position: absolute;
+        top: calc(100% + 5px);
+        left: 0;
+        width: 100%;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        background-color: #fff;
+        display: none;
+        z-index: 10;
+      }
+      .multi-select .options-container.active {
+        display: block;
+      }
+      .multi-select .options-container .option {
+        padding: 10px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        font-weight: normal;
+      }
+      .multi-select .options-container .option:hover {
+        background-color: #f1f1f1;
+      }
+      .multi-select .options-container .option input {
+        margin-right: 10px;
+      }
+      .no-results {
+        text-align: center;
+        margin: 20px;
+        font-size: 18px;
+        color: #666;
+      }
+      .banana-logo {
+        display: block;
+        margin: 0 auto;
+        max-width: 200px;
+        margin-bottom: 20px;
+      }
+      .clear-filters-btn {
+        display: block;
+        margin: 20px auto;
+        padding: 10px 20px;
+        background-color: #000000;
+        color: #fff;
+        border: none;
+        border-radius: 25px;
+        cursor: pointer;
+        font-size: 16px;
+      }
+      .clear-filters-btn:hover {
+        background-color: #2b2b2b;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="raining-logos" id="raining-logos"></div>
+    <div class="header">
+      <div class="header-content">
+        <img
+          src="./assets/getraspberries_logo_transparent.png"
+          alt="Raspberry Logo"
+          class="raspberry-logo-top"
+        />
+        <div class="page-title">Raspberry Database</div>
+      </div>
+    </div>
+    <div class="filters">
+      <div class="search-group">
+        <label for="search-bar"><i class="fas fa-search"></i> Search</label>
+        <input
+          type="text"
+          class="search-bar"
+          id="search-bar"
+          placeholder="Search raspberries not bananas..."
+        />
+        <i class="fas fa-times clear-icon" id="clear-search"></i>
+      </div>
+      <div class="filter-group">
+        <label><i class="fas fa-filter"></i> Rarity</label>
+        <div class="multi-select" id="rarity-filter">
+          <div class="select-box">
+            <span class="selected">Select Rarity</span>
+            <i class="fas fa-chevron-down chevron"></i>
+          </div>
+          <div class="options-container">
+            <div class="option" onclick="toggleCheckbox(this)">
+              <input type="checkbox" value="common" /> Common
+            </div>
+            <div class="option" onclick="toggleCheckbox(this)">
+              <input type="checkbox" value="rare" /> Rare
+            </div>
+            <div class="option" onclick="toggleCheckbox(this)">
+              <input type="checkbox" value="epic" /> Epic
+            </div>
+            <div class="option" onclick="toggleCheckbox(this)">
+              <input type="checkbox" value="legendary" /> Legendary
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="filter-group">
+        <label for="status-filter"
+          ><i class="fas fa-info-circle"></i> Status</label
+        >
+        <div class="multi-select" id="status-filter">
+          <div class="select-box">
+            <span class="selected">Select Status</span>
+            <i class="fas fa-chevron-down chevron"></i>
+          </div>
+          <div class="options-container">
+            <div class="option" onclick="toggleCheckbox(this)">
+              <input type="checkbox" value="live" /> Live
+            </div>
+            <div class="option" onclick="toggleCheckbox(this)">
+              <input type="checkbox" value="discontinued" /> Discontinued
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="filter-group">
+        <label for="date-added-filter"
+          ><i class="fas fa-calendar-alt"></i> Date Added</label
+        >
+        <input type="date" id="date-added-filter" />
+      </div>
+      <div class="filter-group">
+        <label for="min-value"
+          ><i class="fas fa-dollar-sign"></i> Min Value</label
+        >
+        <input
+          type="number"
+          id="min-value"
+          min="0"
+          max="100"
+          step="1"
+          value="0"
+        />
+      </div>
+      <div class="filter-group">
+        <label for="max-value"
+          ><i class="fas fa-dollar-sign"></i> Max Value</label
+        >
+        <input
+          type="number"
+          id="max-value"
+          min="0"
+          max="100"
+          step="1"
+          value="100"
+        />
+      </div>
+    </div>
+    <div id="no-results" class="no-results" style="display: none">
+      <img
+        src="./assets/dead_banana.gif"
+        alt="Dead Banana"
+        class="banana-logo"
+        id="banana-logo"
+      />
+      No results found. Try clearing your filters or searching for something
+      else.
+    </div>
+    <button
+      id="clear-filters-btn"
+      class="clear-filters-btn"
+      style="display: none"
+    >
+      Clear Filters
+    </button>
+    <div class="cards" id="cards">
+      <!-- Cards will be inserted here by JavaScript -->
+    </div>
+
+    <script>
+      const cards = [
+        {
+          id: 1,
+          image: "./assets/getraspberries_logo_transparent_with_blaster.png",
+          name: "A Tester Raspberry",
+          description: "A brave tester berry in the raspberry army.",
+          rarity: "common",
+          value: 10,
+          dateAdded: "2023-01-01",
+          status: "live",
+        },
+        {
+          id: 2,
+          image: "./assets/getraspberries_logo_transparent_with_blaster.png",
+          name: "A Tester Raspberry",
+          description: "A brave tester berry in the raspberry army.",
+          rarity: "rare",
+          value: 30,
+          dateAdded: "2023-02-15",
+          status: "discontinued",
+          discontinuedDate: "2023-06-01",
+        },
+        {
+          id: 3,
+          image: "./assets/getraspberries_logo_transparent_with_blaster.png",
+          name: "A Tester Raspberry",
+          description: "A brave tester berry in the raspberry army.",
+          rarity: "epic",
+          value: 50,
+          dateAdded: "2023-03-10",
+          status: "live",
+        },
+        {
+          id: 4,
+          image: "./assets/getraspberries_logo_transparent_with_blaster.png",
+          name: "A Tester Raspberry",
+          description: "A brave tester berry in the raspberry army.",
+          rarity: "legendary",
+          value: 80,
+          dateAdded: "2023-04-05",
+          status: "discontinued",
+          discontinuedDate: "2023-08-15",
+        },
+      ];
+
+      const cardsContainer = document.getElementById("cards");
+      const searchBar = document.getElementById("search-bar");
+      const clearSearchIcon = document.getElementById("clear-search");
+      const rarityFilter = document.getElementById("rarity-filter");
+      const statusFilter = document.getElementById("status-filter");
+      const dateAddedFilter = document.getElementById("date-added-filter");
+      const minValueInput = document.getElementById("min-value");
+      const maxValueInput = document.getElementById("max-value");
+      const noResultsElement = document.getElementById("no-results");
+      const clearFiltersBtn = document.getElementById("clear-filters-btn");
+
+      function saveFilters() {
+        const filters = {
+          selectedRarities: Array.from(
+            rarityFilter.querySelectorAll(".option input:checked")
+          ).map((checkbox) => checkbox.value),
+          selectedStatuses: Array.from(
+            statusFilter.querySelectorAll(".option input:checked")
+          ).map((checkbox) => checkbox.value),
+          dateAdded: dateAddedFilter.value,
+          minValue: minValueInput.value,
+          maxValue: maxValueInput.value,
+        };
+        localStorage.setItem("filters", JSON.stringify(filters));
+      }
+
+      function loadFilters() {
+        const filters = JSON.parse(localStorage.getItem("filters"));
+        if (filters) {
+          Array.from(rarityFilter.querySelectorAll(".option input")).forEach(
+            (checkbox) => {
+              checkbox.checked = filters.selectedRarities.includes(
+                checkbox.value
+              );
+            }
+          );
+          Array.from(statusFilter.querySelectorAll(".option input")).forEach(
+            (checkbox) => {
+              checkbox.checked = filters.selectedStatuses.includes(
+                checkbox.value
+              );
+            }
+          );
+          dateAddedFilter.value = filters.dateAdded;
+          minValueInput.value = filters.minValue;
+          maxValueInput.value = filters.maxValue;
+        }
+      }
+
+      function renderCards() {
+        cardsContainer.innerHTML = "";
+        const searchText = searchBar.value.toLowerCase();
+        const selectedRarities = Array.from(
+          rarityFilter.querySelectorAll(".option input:checked")
+        ).map((checkbox) => checkbox.value);
+        const selectedStatuses = Array.from(
+          statusFilter.querySelectorAll(".option input:checked")
+        ).map((checkbox) => checkbox.value);
+        const dateAdded = dateAddedFilter.value;
+        const minValue = parseInt(minValueInput.value, 10);
+        const maxValue = parseInt(maxValueInput.value, 10);
+        const favoriteCards =
+          JSON.parse(localStorage.getItem("favorites")) || [];
+
+        const filteredCards = cards.filter((card) => {
+          const matchesSearch = card.name.toLowerCase().includes(searchText);
+          const matchesRarity =
+            selectedRarities.length === 0 ||
+            selectedRarities.includes(card.rarity);
+          const matchesStatus =
+            selectedStatuses.length === 0 ||
+            selectedStatuses.includes(card.status);
+          const matchesDate =
+            !dateAdded || new Date(card.dateAdded) >= new Date(dateAdded);
+          const matchesValue = card.value >= minValue && card.value <= maxValue;
+          return (
+            matchesSearch &&
+            matchesRarity &&
+            matchesStatus &&
+            matchesDate &&
+            matchesValue
+          );
+        });
+
+        if (filteredCards.length === 0) {
+          noResultsElement.style.display = "block";
+          clearFiltersBtn.style.display = "block";
+        } else {
+          noResultsElement.style.display = "none";
+          clearFiltersBtn.style.display = "none";
+        }
+
+        // Separate favorite and non-favorite cards
+        const favoriteFilteredCards = filteredCards.filter((card) =>
+          favoriteCards.includes(card.id)
+        );
+        const nonFavoriteFilteredCards = filteredCards.filter(
+          (card) => !favoriteCards.includes(card.id)
+        );
+
+        const sortedCards = [
+          ...favoriteFilteredCards,
+          ...nonFavoriteFilteredCards,
+        ];
+
+        sortedCards.forEach((card) => {
+          const cardElement = document.createElement("div");
+          cardElement.className = `card ${
+            card.status === "discontinued" ? "discontinued" : ""
+          }`;
+          cardElement.innerHTML = `
+            <i class="fa${
+              favoriteCards.includes(card.id) ? "s" : "r"
+            } fa-heart favorite" onclick="toggleFavorite(${card.id})"></i>
+            <div class="rarity-badge ${card.rarity}">${card.rarity}</div>
+            <img src="${card.image}" alt="${card.name}">
+            <div class="name">
+              ${card.name}
+              <i class="fas fa-info-circle info-icon"></i>
+              <div class="tooltip">
+                Date Added: ${card.dateAdded}<br>
+                ${
+                  card.status === "discontinued"
+                    ? `Discontinued: ${card.discontinuedDate}`
+                    : ""
+                }
+              </div>
+            </div>
+            <div class="description">${card.description}</div>
+            <div class="value">Value: ${card.value}</div>
+          `;
+          cardsContainer.appendChild(cardElement);
+        });
+      }
+
+      function toggleFavorite(cardId) {
+        let favoriteCards = JSON.parse(localStorage.getItem("favorites")) || [];
+        if (favoriteCards.includes(cardId)) {
+          favoriteCards = favoriteCards.filter((id) => id !== cardId);
+        } else {
+          favoriteCards.push(cardId);
+        }
+        localStorage.setItem("favorites", JSON.stringify(favoriteCards));
+        renderCards();
+      }
+
+      function setupMultiSelect(filter) {
+        const selectBox = filter.querySelector(".select-box");
+        const optionsContainer = filter.querySelector(".options-container");
+        selectBox.addEventListener("click", () => {
+          optionsContainer.classList.toggle("active");
+        });
+        document.addEventListener("click", (event) => {
+          if (!filter.contains(event.target)) {
+            optionsContainer.classList.remove("active");
+          }
+        });
+        Array.from(optionsContainer.querySelectorAll(".option input")).forEach(
+          (checkbox) => {
+            checkbox.addEventListener("change", () => {
+              renderCards();
+              saveFilters();
+            });
+          }
+        );
+      }
+
+      function toggleCheckbox(element) {
+        const checkbox = element.querySelector("input");
+        checkbox.checked = !checkbox.checked;
+        renderCards();
+        saveFilters();
+      }
+
+      function clearFilters() {
+        Array.from(rarityFilter.querySelectorAll(".option input")).forEach(
+          (checkbox) => {
+            checkbox.checked = false;
+          }
+        );
+        Array.from(statusFilter.querySelectorAll(".option input")).forEach(
+          (checkbox) => {
+            checkbox.checked = false;
+          }
+        );
+        dateAddedFilter.value = "";
+        minValueInput.value = "0";
+        maxValueInput.value = "100";
+        searchBar.value = ""; // Clear the search bar
+        saveFilters();
+        renderCards();
+      }
+
+      searchBar.addEventListener("input", renderCards);
+      dateAddedFilter.addEventListener("input", () => {
+        renderCards();
+        saveFilters();
+      });
+      minValueInput.addEventListener("input", () => {
+        renderCards();
+        saveFilters();
+      });
+      maxValueInput.addEventListener("input", () => {
+        renderCards();
+        saveFilters();
+      });
+      clearFiltersBtn.addEventListener("click", clearFilters);
+      clearSearchIcon.addEventListener("click", () => {
+        searchBar.value = "";
+        clearSearchIcon.style.display = "none";
+        renderCards();
+      });
+
+      searchBar.addEventListener("input", () => {
+        clearSearchIcon.style.display = searchBar.value ? "block" : "none";
+      });
+
+      loadFilters();
+      setupMultiSelect(rarityFilter);
+      setupMultiSelect(statusFilter);
+      renderCards();
+    </script>
+  </body>
+</html>
