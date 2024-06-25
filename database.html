@@ -497,7 +497,6 @@
         {
           id: 1,
           image: "./assets/items/round_one/Raspberry-Icon.png",
-          imageFull: "./assets/items/round_one/Raspberry-Icon-Large.png",
           name: "Raspberry",
           description: "A classic raspberry.",
           rarity: "common",
@@ -508,7 +507,6 @@
         {
           id: 2,
           image: "./assets/items/round_one/Raspberry-Smiles-Icon.png",
-          imageFull: "./assets/items/round_one/Raspberry-Smiles-Icon-Large.png",
           name: "Smileberry",
           description: "Sometimes raspberries smile back.",
           rarity: "common",
@@ -518,8 +516,7 @@
         },
         {
           id: 3,
-          image: "./assets/items/round_one/Raspberry-Beta-Icon.png",
-          imageFull: "./assets/items/round_one/Raspberry-Beta-Icon-Large.png",
+          image: "./assets/items/round_one/Raspberry-CommunityBeta-Icon.png",
           name: "Betaberry",
           description: "For those who like to live on the edge.",
           rarity: "common",
@@ -530,7 +527,6 @@
         {
           id: 4,
           image: "./assets/items/round_one/Raspberry-Soldier-Icon.png",
-          imageFull: "./assets/items/round_one/Raspberry-Soldier-Icon-Large.png",
           name: "Soldierberry",
           description: "A raspberry ready for battle.",
           rarity: "rare",
@@ -541,7 +537,6 @@
         {
           id: 5,
           image: "./assets/items/round_one/Raspberry-Baby-Icon.png",
-          imageFull: "./assets/items/round_one/Raspberry-Baby-Icon-Large.png",
           name: "Babyberry",
           description: "Aww, it's a baby raspberry!",
           rarity: "rare",
@@ -552,7 +547,6 @@
         {
           id: 6,
           image: "./assets/items/round_one/Raspberry-Ninja-Icon.png",
-          imageFull: "./assets/items/round_one/Raspberry-Ninja-Icon-Large.png",
           name: "Ninjaberry",
           description: "A raspberry that strikes from the shadows.",
           rarity: "legendary",
@@ -677,7 +671,7 @@
               favoriteCards.includes(card.id) ? "s" : "r"
             } fa-heart favorite" onclick="toggleFavorite(${card.id})"></i>
             <div class="rarity-badge ${card.rarity}">${card.rarity}</div>
-            <img src="${card.image}" alt="${card.name}" href"${card.imageFull}">
+            <img src="${card.image}" alt="${card.name}">
             <div class="name">
               ${card.name}
               <i class="fas fa-info-circle info-icon"></i>
