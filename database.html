@@ -263,9 +263,6 @@
       .rare {
         background-color: #4169e1;
       }
-      .epic {
-        background-color: #9932cc;
-      }
       .legendary {
         background-color: #ffd700;
       }
@@ -417,9 +414,6 @@
               <input type="checkbox" value="rare" /> Rare
             </div>
             <div class="option" onclick="toggleCheckbox(this)">
-              <input type="checkbox" value="epic" /> Epic
-            </div>
-            <div class="option" onclick="toggleCheckbox(this)">
               <input type="checkbox" value="legendary" /> Legendary
             </div>
           </div>
@@ -499,7 +493,68 @@
     </div>
 
     <script>
-      const cards = [];
+      const cards = [
+        {
+          id: 1,
+          image: "./assets/items/round_one/Raspberry-Icon.png",
+          name: "Raspberry",
+          description: "A classic raspberry.",
+          rarity: "common",
+          value: 0.25,
+          dateAdded: "2023-06-25",
+          status: "live",
+        },
+        {
+          id: 2,
+          image: "./assets/items/round_one/Raspberry-Smiles-Icon.png",
+          name: "Smileberry",
+          description: "Sometimes raspberries smile back.",
+          rarity: "common",
+          value: 0.25,
+          dateAdded: "2023-06-25",
+          status: "live",
+        },
+        {
+          id: 3,
+          image: "./assets/items/round_one/Raspberry-Beta-Icon.png",
+          name: "Betaberry",
+          description: "For those who like to live on the edge.",
+          rarity: "common",
+          value: 0.25,
+          dateAdded: "2023-06-25",
+          status: "live",
+        },
+        {
+          id: 4,
+          image: "./assets/items/round_one/Raspberry-Soldier-Icon.png",
+          name: "Soldierberry",
+          description: "A raspberry ready for battle.",
+          rarity: "rare",
+          value: 0.25,
+          dateAdded: "2023-06-25",
+          status: "live",
+        },
+        {
+          id: 5,
+          image: "./assets/items/round_one/Raspberry-Baby-Icon.png",
+          name: "Babyberry",
+          description: "Aww, it's a baby raspberry!",
+          rarity: "rare",
+          value: 0.25,
+          dateAdded: "2023-06-25",
+          status: "live",
+        },
+        {
+          id: 6,
+          image: "./assets/items/round_one/Raspberry-Ninja-Icon.png",
+          name: "Ninjaberry",
+          description: "A raspberry that strikes from the shadows.",
+          rarity: "legendary",
+          value: 0.25,
+          dateAdded: "2023-06-25",
+          status: "live",
+        },
+      ];
 
       const cardsContainer = document.getElementById("cards");
       const searchBar = document.getElementById("search-bar");
