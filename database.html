@@ -606,7 +606,7 @@
         {
           id: 7,
           image: "./assets/items/round_two/Raspberry-Pixel-Icon.png",
-          imageFull: "./assets/items/round_one/Raspberry-Pixel-Icon-Large.png",
+          imageFull: "./assets/items/round_two/Raspberry-Pixel-Icon-Large.png",
           name: "Pixelberry",
           description: "A raspberry from the past.",
           rarity: "common",
@@ -617,7 +617,7 @@
         {
           id: 8,
           image: "./assets/items/round_two/Raspberry-Shine-Icon.png",
-          imageFull: "./assets/items/round_one/Raspberry-Shine-Icon-Large.png",
+          imageFull: "./assets/items/round_two/Raspberry-Shine-Icon-Large.png",
           name: "Shineberry",
           description: "A raspberry that sparkles.",
           rarity: "common",
@@ -628,7 +628,7 @@
         {
           id: 9,
           image: "./assets/items/round_two/Raspberry-Noir-Icon.png",
-          imageFull: "./assets/items/round_one/Raspberry-Noir-Icon-Large.png",
+          imageFull: "./assets/items/round_two/Raspberry-Noir-Icon-Large.png",
           name: "Noirberry",
           description: "A raspberry with a mysterious past.",
           rarity: "rare",
@@ -639,7 +639,7 @@
         {
           id: 10,
           image: "./assets/items/round_two/Raspberry-Space-Icon.png",
-          imageFull: "./assets/items/round_one/Raspberry-Space-Icon-Large.png",
+          imageFull: "./assets/items/round_two/Raspberry-Space-Icon-Large.png",
           name: "Spaceberry",
           description: "A raspberry from the stars.",
           rarity: "legendary",
@@ -662,7 +662,7 @@
         {
           id: 12,
           image: "./assets/items/round_three/Raspberry-Eye-Icon.png",
-          imageFull: "./assets/items/round_one/Raspberry-Eye-Icon-Large.png",
+          imageFull: "./assets/items/round_three/Raspberry-Eye-Icon-Large.png",
           name: "Eyeberry",
           description: "A raspberry bursting thats always watching.",
           rarity: "rare",
@@ -673,7 +673,7 @@
         {
           id: 13,
           image: "./assets/items/round_three/Raspberry-Pepe-Icon.png",
-          imageFull: "./assets/items/round_one/Raspberry-Pepe-Icon-Large.png",
+          imageFull: "./assets/items/round_three/Raspberry-Pepe-Icon-Large.png",
           name: "Pepeberry",
           description: "A raspberry that's a little bit of a meme.",
           rarity: "legendary",
@@ -684,7 +684,8 @@
         {
           id: 14,
           image: "./assets/items/round_three/Raspberry-Tarot-Icon.png",
-          imageFull: "./assets/items/round_one/Raspberry-Tarot-Icon-Large.png",
+          imageFull:
+            "./assets/items/round_three/Raspberry-Tarot-Icon-Large.png",
           name: "Tarotberry",
           description: "A raspberry infused with the essence of tarot.",
           rarity: "common",
@@ -810,7 +811,9 @@
               favoriteCards.includes(card.id) ? "s" : "r"
             } fa-heart favorite" onclick="toggleFavorite(${card.id})"></i>
             <div class="rarity-badge ${card.rarity}">${card.rarity}</div>
-            <img src="${card.image}" alt="${card.name}" href"${card.imageFull}">
+            <img src="${card.imageFull}" alt="${card.name}" href"${
+            card.imageFull
+          }">
             <div class="name">
               ${card.name}
               <i class="fas fa-info-circle info-icon"></i>
