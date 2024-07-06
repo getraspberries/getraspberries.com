@@ -54,8 +54,26 @@
         position: relative;
         max-height: 100vh; /* Added to restrict maximum height */
       }
+      .live-count,
+      .discontinued-count {
+        display: inline-block;
+        padding: 5px 10px;
+        border-radius: 50%;
+        color: white;
+        font-weight: bold;
+      }
+
+      .live-count {
+        background-color: #4caf50; /* Green background for live items */
+      }
+
+      .discontinued-count {
+        background-color: #f44336; /* Red background for discontinued items */
+      }
+
       .header {
         display: flex;
+        flex-direction: column;
         justify-content: center;
         align-items: center;
         padding: 10px 0;
@@ -72,6 +90,29 @@
       .page-title {
         font-size: 24px;
         font-weight: bold;
+      }
+      .item-count {
+        font-size: 16px;
+        margin-top: 5px;
+      }
+      .message {
+        font-size: 14px;
+        margin: 10px 0;
+        color: #666;
+      }
+      .steam-button {
+        display: inline-block;
+        margin-top: 10px;
+        padding: 10px 20px;
+        background-color: #4caf50;
+        color: #fff;
+        text-decoration: none;
+        border-radius: 25px;
+        font-size: 16px;
+        transition: background-color 0.3s ease;
+      }
+      .steam-button:hover {
+        background-color: #45a049;
       }
       .filters {
         display: flex;
@@ -418,7 +459,21 @@
         />
         <div class="page-title">Raspberry Database</div>
       </div>
+      <div class="item-count" id="item-count">
+        Total Live Items: <span class="live-count">0</span> | Total Discontinued
+        Items: <span class="discontinued-count">0</span>
+      </div>
+      <div class="message">
+        Values are not updated based on current Steam market price
+      </div>
+      <a
+        href="https://steamcommunity.com/market/search?appid=3048820#p1_popular_desc"
+        target="_blank"
+        class="steam-button"
+        >Go to Steam Market</a
+      >
     </div>
+
     <button
       id="filter-toggle-btn"
       class="filter-toggle-btn"
@@ -742,6 +797,7 @@
       const noResultsElement = document.getElementById("no-results");
       const clearFiltersBtn = document.getElementById("clear-filters-btn");
       const filterToggleBtn = document.getElementById("filter-toggle-btn");
+      const itemCountElement = document.getElementById("item-count");
 
       function saveFilters() {
         const filters = {
@@ -867,6 +923,15 @@
           `;
           cardsContainer.appendChild(cardElement);
         });
+
+        // Update item counts
+        const liveCount = sortedCards.filter(
+          (card) => card.status === "live"
+        ).length;
+        const discontinuedCount = sortedCards.filter(
+          (card) => card.status === "discontinued"
+        ).length;
+        itemCountElement.innerHTML = `Total Live Items: <span class="live-count">${liveCount}</span> | Total Discontinued Items: <span class="discontinued-count">${discontinuedCount}</span>`;
       }
 
       function toggleFavorite(cardId) {
