@@ -598,8 +598,8 @@
           description: "A classic raspberry.",
           rarity: "common",
           value: 0.25,
-          dateAdded: "2024-06-25",
-          status: "live",
+          discontinuedDate: "2024-07-06",
+          status: "discontinued",
         },
         {
           id: 2,
@@ -609,8 +609,8 @@
           description: "Sometimes raspberries smile back.",
           rarity: "common",
           value: 0.25,
-          dateAdded: "2024-06-25",
-          status: "live",
+          discontinuedDate: "2024-07-06",
+          status: "discontinued",
         },
         {
           id: 3,
@@ -668,7 +668,8 @@
           rarity: "common",
           value: 0.25,
           dateAdded: "2024-07-03",
-          status: "live",
+          discontinuedDate: "2024-07-06",
+          status: "discontinued",
         },
         {
           id: 8,
@@ -748,7 +749,8 @@
           rarity: "common",
           value: 0.25,
           dateAdded: "2024-07-04",
-          status: "live",
+          discontinuedDate: "2024-07-06",
+          status: "discontinued",
         },
         {
           id: 15,
@@ -791,6 +793,77 @@
           name: "Anticheatberry",
           description: "A raspberry that's always watching.",
           rarity: "rare",
+          value: 0.25,
+          dateAdded: "2024-07-06",
+          status: "live",
+        },
+        {
+          id: 19,
+          image: "./assets/items/round_five/Raspberry-Bubble-Icon.png",
+          imageFull:
+            "./assets/items/round_five/Raspberry-Bubble-Icon-Large.png",
+          name: "Bubbleberry",
+          description: "Breathe out, breathe in...",
+          rarity: "common",
+          value: 0.25,
+          dateAdded: "2024-07-06",
+          status: "live",
+        },
+        {
+          id: 20,
+          image: "./assets/items/round_five/Raspberry-Burning-Icon.png",
+          imageFull:
+            "./assets/items/round_five/Raspberry-Burning-Icon-Large.png",
+          name: "Burningberry",
+          description: "Sometimes raspberries are on fire.",
+          rarity: "rare",
+          value: 0.25,
+          dateAdded: "2024-07-06",
+          status: "live",
+        },
+        {
+          id: 21,
+          image: "./assets/items/round_five/Raspberry-Murder-Icon.png",
+          imageFull:
+            "./assets/items/round_five/Raspberry-Murder-Icon-Large.png",
+          name: "Murderberry",
+          description: "Who the hell dares?",
+          rarity: "legendary",
+          value: 0.25,
+          dateAdded: "2024-07-06",
+          status: "live",
+        },
+        {
+          id: 22,
+          image: "./assets/items/round_five/Raspberry-Riot-Icon.png",
+          imageFull: "./assets/items/round_five/Raspberry-Riot-Icon-Large.png",
+          name: "Riotberry",
+          description: "Nostalgia for a time you never lived in.",
+          rarity: "common",
+          value: 0.25,
+          dateAdded: "2024-07-06",
+          status: "live",
+        },
+        {
+          id: 23,
+          image: "./assets/items/round_five/Raspberry-Cthulhu-Icon.png",
+          imageFull:
+            "./assets/items/round_five/Raspberry-Cthulhu-Icon-Large.png",
+          name: "Cthulhuberry",
+          description: "From the depths of R'lyeh",
+          rarity: "rare",
+          value: 0.25,
+          dateAdded: "2024-07-06",
+          status: "live",
+        },
+        {
+          id: 24,
+          image: "./assets/items/round_five/Raspberry-Voodoo-Icon.png",
+          imageFull:
+            "./assets/items/round_five/Raspberry-Voodoo-Icon-Large.png",
+          name: "Voodooberry",
+          description: "A raspberry that's a little bit cursed.",
+          rarity: "legendary",
           value: 0.25,
           dateAdded: "2024-07-06",
           status: "live",
@@ -910,28 +983,28 @@
             card.status === "discontinued" ? "discontinued" : ""
           }`;
           cardElement.innerHTML = `
-            <i class="fa${
-              favoriteCards.includes(card.id) ? "s" : "r"
-            } fa-heart favorite" onclick="toggleFavorite(${card.id})"></i>
-            <div class="rarity-badge ${card.rarity}">${card.rarity}</div>
-            <img src="${card.imageFull}" alt="${card.name}" href"${
+                  <i class="fa${
+                    favoriteCards.includes(card.id) ? "s" : "r"
+                  } fa-heart favorite" onclick="toggleFavorite(${card.id})"></i>
+                  <div class="rarity-badge ${card.rarity}">${card.rarity}</div>
+                  <img src="${card.imageFull}" alt="${card.name}" href"${
             card.imageFull
           }">
-            <div class="name">
-              ${card.name}
-              <i class="fas fa-info-circle info-icon"></i>
-              <div class="tooltip">
-                Date Added: ${card.dateAdded}<br>
-                ${
-                  card.status === "discontinued"
-                    ? `Discontinued: ${card.discontinuedDate}`
-                    : ""
-                }
-              </div>
-            </div>
-            <div class="description">${card.description}</div>
-            <div class="value">Value: ${card.value}</div>
-          `;
+                  <div class="name">
+                    ${card.name}
+                    <i class="fas fa-info-circle info-icon"></i>
+                    <div class="tooltip">
+                      Date Added: ${card.dateAdded}<br>
+                      ${
+                        card.status === "discontinued"
+                          ? `Discontinued: ${card.discontinuedDate}`
+                          : ""
+                      }
+                    </div>
+                  </div>
+                  <div class="description">${card.description}</div>
+                  <div class="value">Value: ${card.value}</div>
+                `;
           cardsContainer.appendChild(cardElement);
         });
 
