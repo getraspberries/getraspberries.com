@@ -52,7 +52,7 @@
         padding: 0;
         background-color: #f5f5f5;
         position: relative;
-        max-height: 100vh; /* Added to restrict maximum height */
+        max-height: 100vh;
       }
       .live-count,
       .discontinued-count {
@@ -64,11 +64,11 @@
       }
 
       .live-count {
-        background-color: #4caf50; /* Green background for live items */
+        background-color: #4caf50;
       }
 
       .discontinued-count {
-        background-color: #f44336; /* Red background for discontinued items */
+        background-color: #f44336;
       }
 
       .header {
@@ -82,6 +82,7 @@
       .header-content {
         display: flex;
         align-items: center;
+        justify-content: center;
       }
       .raspberry-logo-top {
         max-width: 50px;
@@ -90,15 +91,18 @@
       .page-title {
         font-size: 24px;
         font-weight: bold;
+        text-align: center;
       }
       .item-count {
         font-size: 16px;
         margin-top: 5px;
+        text-align: center;
       }
       .message {
         font-size: 14px;
         margin: 10px 0;
         color: #666;
+        text-align: center;
       }
       .steam-button {
         display: inline-block;
@@ -110,6 +114,7 @@
         border-radius: 25px;
         font-size: 16px;
         transition: background-color 0.3s ease;
+        text-align: center;
       }
       .steam-button:hover {
         background-color: #45a049;
@@ -125,7 +130,7 @@
         margin: 20px auto;
         width: 90%;
         flex-wrap: wrap;
-        max-width: 1200px; /* Added to restrict maximum width */
+        max-width: 1200px;
       }
       .search-group {
         flex: 1;
@@ -177,7 +182,7 @@
         display: flex;
         flex-direction: column;
         margin: 10px;
-        align-items: flex-start; /* Left-justified the labels */
+        align-items: flex-start;
       }
       .filter-group label {
         font-weight: bold;
@@ -185,7 +190,7 @@
       .filter-group select,
       .filter-group input[type="number"],
       .filter-group input[type="date"] {
-        width: 150px; /* Made the date added box longer */
+        width: 150px;
         padding: 12px;
         border: 1px solid #ccc;
         border-radius: 25px;
@@ -224,10 +229,10 @@
         margin: 20px auto;
         position: relative;
         z-index: 1;
-        max-height: 100vh; /* Make the cards section scrollable */
+        max-height: 100vh;
         overflow-y: auto;
         width: 90%;
-        max-width: 1200px; /* Added to restrict maximum width */
+        max-width: 1200px;
       }
       .card {
         background-color: #fff;
@@ -250,7 +255,7 @@
         font-size: 18px;
         font-weight: bold;
         margin: 10px 0;
-        position: relative; /* Add position relative */
+        position: relative;
       }
       .card .description {
         font-size: 14px;
@@ -444,9 +449,13 @@
           border-radius: 25px;
           cursor: pointer;
           font-size: 16px;
+          text-align: center;
         }
         .filter-toggle-btn:hover {
           background-color: #2b2b2b;
+        }
+        .header-content {
+          flex-direction: column;
         }
       }
     </style>
@@ -594,314 +603,8 @@
       <!-- Cards will be inserted here by JavaScript -->
     </div>
 
+    <script src="./cards.js"></script>
     <script>
-      const cards = [
-        {
-          id: 1,
-          image: "./assets/items/round_one/Raspberry-Icon.png",
-          imageFull: "./assets/items/round_one/Raspberry-Icon-Large.png",
-          name: "Raspberry",
-          description: "A classic raspberry.",
-          rarity: "common",
-          value: 0.25,
-          dateAdded: "2024-06-25",
-          discontinuedDate: "2024-07-06",
-          status: "discontinued",
-        },
-        {
-          id: 2,
-          image: "./assets/items/round_one/Raspberry-Smiles-Icon.png",
-          imageFull: "./assets/items/round_one/Raspberry-Smiles-Icon-Large.png",
-          name: "Smileberry",
-          description: "Sometimes raspberries smile back.",
-          rarity: "common",
-          value: 0.25,
-          dateAdded: "2024-06-25",
-          discontinuedDate: "2024-07-06",
-          status: "discontinued",
-        },
-        {
-          id: 3,
-          image: "./assets/items/round_one/Raspberry-CommunityBeta-Icon.png",
-          imageFull:
-            "./assets/items/round_one/Raspberry-CommunityBeta-Icon-Large.png",
-          name: "Betaberry",
-          description: "For those who like to live on the edge.",
-          rarity: "common",
-          value: 0.25,
-          dateAdded: "2024-06-25",
-          discontinuedDate: "2024-07-05",
-          status: "discontinued",
-        },
-        {
-          id: 4,
-          image: "./assets/items/round_one/Raspberry-Soldier-Icon.png",
-          imageFull:
-            "./assets/items/round_one/Raspberry-Soldier-Icon-Large.png",
-          name: "Soldierberry",
-          description: "A raspberry ready for battle.",
-          rarity: "rare",
-          value: 0.25,
-          dateAdded: "2024-06-25",
-          status: "live",
-        },
-        {
-          id: 5,
-          image: "./assets/items/round_one/Raspberry-Baby-Icon.png",
-          imageFull: "./assets/items/round_one/Raspberry-Baby-Icon-Large.png",
-          name: "Babyberry",
-          description: "Aww, it's a baby raspberry!",
-          rarity: "rare",
-          value: 0.25,
-          dateAdded: "2024-06-25",
-          status: "live",
-        },
-        {
-          id: 6,
-          image: "./assets/items/round_one/Raspberry-Ninja-Icon.png",
-          imageFull: "./assets/items/round_one/Raspberry-Ninja-Icon-Large.png",
-          name: "Ninjaberry",
-          description: "A raspberry that strikes from the shadows.",
-          rarity: "legendary",
-          value: 0.25,
-          dateAdded: "2024-06-25",
-          status: "live",
-        },
-        {
-          id: 7,
-          image: "./assets/items/round_two/Raspberry-Pixel-Icon.png",
-          imageFull: "./assets/items/round_two/Raspberry-Pixel-Icon-Large.png",
-          name: "Pixelberry",
-          description: "A raspberry from the past.",
-          rarity: "common",
-          value: 0.25,
-          dateAdded: "2024-07-03",
-          discontinuedDate: "2024-07-06",
-          status: "discontinued",
-        },
-        {
-          id: 8,
-          image: "./assets/items/round_two/Raspberry-Shine-Icon.png",
-          imageFull: "./assets/items/round_two/Raspberry-Shine-Icon-Large.png",
-          name: "Shineberry",
-          description: "A raspberry that sparkles.",
-          rarity: "common",
-          value: 0.25,
-          dateAdded: "2024-07-03",
-          discontinuedDate: "2024-07-06",
-          status: "discontinued",
-        },
-        {
-          id: 9,
-          image: "./assets/items/round_two/Raspberry-Noir-Icon.png",
-          imageFull: "./assets/items/round_two/Raspberry-Noir-Icon-Large.png",
-          name: "Noirberry",
-          description: "A raspberry with a mysterious past.",
-          rarity: "rare",
-          value: 0.25,
-          dateAdded: "2024-07-03",
-          status: "live",
-        },
-        {
-          id: 10,
-          image: "./assets/items/round_two/Raspberry-Space-Icon.png",
-          imageFull: "./assets/items/round_two/Raspberry-Space-Icon-Large.png",
-          name: "Spaceberry",
-          description: "A raspberry from the stars.",
-          rarity: "legendary",
-          value: 0.25,
-          dateAdded: "2024-07-03",
-          status: "live",
-        },
-        {
-          id: 11,
-          image: "./assets/items/event/july/Raspberry-July4th-Icon.png",
-          imageFull:
-            "./assets/items/event/july/Raspberry-July4th-Icon-Large.png",
-          name: "Freedomberry",
-          description: "A raspberry bursting with patriotism.",
-          rarity: "event",
-          value: 0.25,
-          dateAdded: "2024-07-04",
-          discontinuedDate: "2024-07-04",
-          status: "discontinued",
-        },
-        {
-          id: 12,
-          image: "./assets/items/round_three/Raspberry-Eye-Icon.png",
-          imageFull: "./assets/items/round_three/Raspberry-Eye-Icon-Large.png",
-          name: "Eyeberry",
-          description: "A raspberry bursting thats always watching.",
-          rarity: "rare",
-          value: 0.25,
-          dateAdded: "2024-07-04",
-          status: "live",
-        },
-        {
-          id: 13,
-          image: "./assets/items/round_three/Raspberry-Pepe-Icon.png",
-          imageFull: "./assets/items/round_three/Raspberry-Pepe-Icon-Large.png",
-          name: "Pepeberry",
-          description: "A raspberry that's a little bit of a meme.",
-          rarity: "legendary",
-          value: 0.25,
-          dateAdded: "2024-07-04",
-          status: "live",
-        },
-        {
-          id: 14,
-          image: "./assets/items/round_three/Raspberry-Tarot-Icon.png",
-          imageFull:
-            "./assets/items/round_three/Raspberry-Tarot-Icon-Large.png",
-          name: "Tarotberry",
-          description: "A raspberry infused with the essence of tarot.",
-          rarity: "common",
-          value: 0.25,
-          dateAdded: "2024-07-04",
-          discontinuedDate: "2024-07-06",
-          status: "discontinued",
-        },
-        {
-          id: 15,
-          image: "./assets/items/round_four/Raspberry-Juicy-Icon.png",
-          imageFull: "./assets/items/round_four/Raspberry-Juicy-Icon-Large.png",
-          name: "Juicyberry",
-          description: "A raspberry that's extra juicy.",
-          rarity: "common",
-          value: 0.25,
-          dateAdded: "2024-07-05",
-          status: "live",
-        },
-        {
-          id: 16,
-          image: "./assets/items/round_four/Raspberry-Moon-Icon.png",
-          imageFull: "./assets/items/round_four/Raspberry-Moon-Icon-Large.png",
-          name: "Moonberry",
-          description: "A raspberry that's out of this world.",
-          rarity: "legendary",
-          value: 0.25,
-          dateAdded: "2024-07-05",
-          status: "live",
-        },
-        {
-          id: 17,
-          image: "./assets/items/round_four/Raspberry-Poncho-Icon.png",
-          imageFull:
-            "./assets/items/round_four/Raspberry-Poncho-Icon-Large.png",
-          name: "Ponchoberry",
-          description: "A raspberry that's part cat.",
-          rarity: "rare",
-          value: 0.25,
-          dateAdded: "2024-07-05",
-          status: "live",
-        },
-        {
-          id: 18,
-          image: "./assets/items/round_five/Raspberry-EAC-Icon.png",
-          imageFull: "./assets/items/round_five/Raspberry-EAC-Icon-Large.png",
-          name: "Anticheatberry",
-          description: "A raspberry that's always watching.",
-          rarity: "rare",
-          value: 0.25,
-          dateAdded: "2024-07-06",
-          status: "live",
-        },
-        {
-          id: 19,
-          image: "./assets/items/round_five/Raspberry-Bubble-Icon.png",
-          imageFull:
-            "./assets/items/round_five/Raspberry-Bubble-Icon-Large.png",
-          name: "Bubbleberry",
-          description: "Breathe out, breathe in...",
-          rarity: "common",
-          value: 0.25,
-          dateAdded: "2024-07-06",
-          status: "live",
-        },
-        {
-          id: 20,
-          image: "./assets/items/round_five/Raspberry-Burning-Icon.png",
-          imageFull:
-            "./assets/items/round_five/Raspberry-Burning-Icon-Large.png",
-          name: "Burningberry",
-          description: "Sometimes raspberries are on fire.",
-          rarity: "rare",
-          value: 0.25,
-          dateAdded: "2024-07-06",
-          status: "live",
-        },
-        {
-          id: 21,
-          image: "./assets/items/round_five/Raspberry-Murder-Icon.png",
-          imageFull:
-            "./assets/items/round_five/Raspberry-Murder-Icon-Large.png",
-          name: "Murderberry",
-          description: "Who the hell dares?",
-          rarity: "legendary",
-          value: 0.25,
-          dateAdded: "2024-07-06",
-          status: "live",
-        },
-        {
-          id: 22,
-          image: "./assets/items/round_five/Raspberry-Riot-Icon.png",
-          imageFull: "./assets/items/round_five/Raspberry-Riot-Icon-Large.png",
-          name: "Riotberry",
-          description: "Nostalgia for a time you never lived in.",
-          rarity: "common",
-          value: 0.25,
-          dateAdded: "2024-07-06",
-          status: "live",
-        },
-        {
-          id: 23,
-          image: "./assets/items/round_five/Raspberry-Cthulhu-Icon.png",
-          imageFull:
-            "./assets/items/round_five/Raspberry-Cthulhu-Icon-Large.png",
-          name: "Cthulhuberry",
-          description: "From the depths of R'lyeh",
-          rarity: "rare",
-          value: 0.25,
-          dateAdded: "2024-07-06",
-          status: "live",
-        },
-        {
-          id: 24,
-          image: "./assets/items/round_five/Raspberry-Voodoo-Icon.png",
-          imageFull:
-            "./assets/items/round_five/Raspberry-Voodoo-Icon-Large.png",
-          name: "Voodooberry",
-          description: "A raspberry that's a little bit cursed.",
-          rarity: "legendary",
-          value: 0.25,
-          dateAdded: "2024-07-06",
-          status: "live",
-        },
-        {
-          id: 25,
-          image: "./assets/items/round_five/Raspberry-CD-Icon.png",
-          imageFull: "./assets/items/round_five/Raspberry-CD-Icon-Large.png",
-          name: "BerryFM",
-          description: "Your latest selection of clicker music",
-          rarity: "buyable",
-          value: 0.25,
-          dateAdded: "2024-07-06",
-          status: "live",
-        },
-        {
-          id: 26,
-          image: "./assets/items/round_five/Raspberry-Snowglobe-Icon.png",
-          imageFull:
-            "./assets/items/round_five/Raspberry-Snowglobe-Icon-Large.png",
-          name: "Irrationalberry",
-          description: "It's Refreshing! Just what you need this hot summer.",
-          rarity: "buyable",
-          value: 0.25,
-          dateAdded: "2024-07-06",
-          status: "live",
-        },
-      ];
-
       const cardsContainer = document.getElementById("cards");
       const searchBar = document.getElementById("search-bar");
       const clearSearchIcon = document.getElementById("clear-search");
@@ -951,6 +654,14 @@
           minValueInput.value = filters.minValue;
           maxValueInput.value = filters.maxValue;
         }
+      }
+
+      function updateItemCount() {
+        const liveCount = cards.filter((card) => card.status === "live").length;
+        const discontinuedCount = cards.filter(
+          (card) => card.status === "discontinued"
+        ).length;
+        itemCountElement.innerHTML = `Total Live Items: <span class="live-count">${liveCount}</span> | Total Discontinued Items: <span class="discontinued-count">${discontinuedCount}</span>`;
       }
 
       function renderCards() {
@@ -1043,15 +754,6 @@
                             `;
           cardsContainer.appendChild(cardElement);
         });
-
-        // Update item counts
-        const liveCount = sortedCards.filter(
-          (card) => card.status === "live"
-        ).length;
-        const discontinuedCount = sortedCards.filter(
-          (card) => card.status === "discontinued"
-        ).length;
-        itemCountElement.innerHTML = `Total Live Items: <span class="live-count">${liveCount}</span> | Total Discontinued Items: <span class="discontinued-count">${discontinuedCount}</span>`;
       }
 
       function toggleFavorite(cardId) {
@@ -1107,7 +809,7 @@
         dateAddedFilter.value = "";
         minValueInput.value = "0";
         maxValueInput.value = "100";
-        searchBar.value = ""; // Clear the search bar
+        searchBar.value = "";
         saveFilters();
         renderCards();
       }
@@ -1146,6 +848,7 @@
       loadFilters();
       setupMultiSelect(rarityFilter);
       setupMultiSelect(statusFilter);
+      updateItemCount();
       renderCards();
     </script>
   </body>
