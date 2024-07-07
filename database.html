@@ -313,6 +313,9 @@
       .event {
         background-color: #e9a00e;
       }
+      .buyable {
+        background-color: #000000;
+      }
       .raining-logos {
         position: absolute;
         top: 0;
@@ -512,6 +515,9 @@
             <div class="option" onclick="toggleCheckbox(this)">
               <input type="checkbox" value="event" /> Event
             </div>
+            <div class="option" onclick="toggleCheckbox(this)">
+              <input type="checkbox" value="buyable" /> Buyable
+            </div>
           </div>
         </div>
       </div>
@@ -598,6 +604,7 @@
           description: "A classic raspberry.",
           rarity: "common",
           value: 0.25,
+          dateAdded: "2024-06-25",
           discontinuedDate: "2024-07-06",
           status: "discontinued",
         },
@@ -609,6 +616,7 @@
           description: "Sometimes raspberries smile back.",
           rarity: "common",
           value: 0.25,
+          dateAdded: "2024-06-25",
           discontinuedDate: "2024-07-06",
           status: "discontinued",
         },
@@ -680,7 +688,8 @@
           rarity: "common",
           value: 0.25,
           dateAdded: "2024-07-03",
-          status: "live",
+          discontinuedDate: "2024-07-06",
+          status: "discontinued",
         },
         {
           id: 9,
@@ -868,6 +877,29 @@
           dateAdded: "2024-07-06",
           status: "live",
         },
+        {
+          id: 25,
+          image: "./assets/items/round_five/Raspberry-CD-Icon.png",
+          imageFull: "./assets/items/round_five/Raspberry-CD-Icon-Large.png",
+          name: "BerryFM",
+          description: "Your latest selection of clicker music",
+          rarity: "buyable",
+          value: 0.25,
+          dateAdded: "2024-07-06",
+          status: "live",
+        },
+        {
+          id: 26,
+          image: "./assets/items/round_five/Raspberry-Snowglobe-Icon.png",
+          imageFull:
+            "./assets/items/round_five/Raspberry-Snowglobe-Icon-Large.png",
+          name: "Irrationalberry",
+          description: "It's Refreshing! Just what you need this hot summer.",
+          rarity: "buyable",
+          value: 0.25,
+          dateAdded: "2024-07-06",
+          status: "live",
+        },
       ];
 
       const cardsContainer = document.getElementById("cards");
@@ -983,28 +1015,32 @@
             card.status === "discontinued" ? "discontinued" : ""
           }`;
           cardElement.innerHTML = `
-                  <i class="fa${
-                    favoriteCards.includes(card.id) ? "s" : "r"
-                  } fa-heart favorite" onclick="toggleFavorite(${card.id})"></i>
-                  <div class="rarity-badge ${card.rarity}">${card.rarity}</div>
-                  <img src="${card.imageFull}" alt="${card.name}" href"${
-            card.imageFull
-          }">
-                  <div class="name">
-                    ${card.name}
-                    <i class="fas fa-info-circle info-icon"></i>
-                    <div class="tooltip">
-                      Date Added: ${card.dateAdded}<br>
-                      ${
-                        card.status === "discontinued"
-                          ? `Discontinued: ${card.discontinuedDate}`
-                          : ""
-                      }
-                    </div>
-                  </div>
-                  <div class="description">${card.description}</div>
-                  <div class="value">Value: ${card.value}</div>
-                `;
+                              <i class="fa${
+                                favoriteCards.includes(card.id) ? "s" : "r"
+                              } fa-heart favorite" onclick="toggleFavorite(${
+            card.id
+          })"></i>
+                              <div class="rarity-badge ${card.rarity}">${
+            card.rarity
+          }</div>
+                              <img src="${card.imageFull}" alt="${
+            card.name
+          }" href"${card.imageFull}">
+                              <div class="name">
+                                ${card.name}
+                                <i class="fas fa-info-circle info-icon"></i>
+                                <div class="tooltip">
+                                  Date Added: ${card.dateAdded}<br>
+                                  ${
+                                    card.status === "discontinued"
+                                      ? `Discontinued: ${card.discontinuedDate}`
+                                      : ""
+                                  }
+                                </div>
+                              </div>
+                              <div class="description">${card.description}</div>
+                              <div class="value">Value: ${card.value}</div>
+                            `;
           cardsContainer.appendChild(cardElement);
         });
 
