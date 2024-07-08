@@ -171,7 +171,8 @@ const cards = [
     rarity: "common",
     value: 0.25,
     dateAdded: "2024-07-05",
-    status: "live",
+    discontinuedDate: "2024-07-08",
+    status: "discontinued",
   },
   {
     id: 16,
