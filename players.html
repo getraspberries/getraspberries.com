@@ -613,15 +613,20 @@
           JSON.parse(localStorage.getItem("userDBFavorites")) || [];
 
         const filteredCards = cards.filter((card) => {
+          const profileName = card.profileName
+            ? card.profileName.toLowerCase()
+            : "";
+          const steamid = card.steamid ? card.steamid.toLowerCase() : "";
+
           const matchesSearch =
-            card.steamid.toLowerCase().includes(searchText) ||
-            card.profileName.toLowerCase().includes(searchText);
+            profileName.includes(searchText) || steamid.includes(searchText);
           const matchesLastLogin =
             !lastLogin || new Date(card.lastLogin) >= new Date(lastLogin);
           const matchesLastDropped =
             !lastDropped || new Date(card.lastDropped) >= new Date(lastDropped);
           const matchesDropsToday = card.dropsToday >= dropsToday;
           const matchesRequestsToday = card.requestsToday >= requestsToday;
+
           return (
             matchesSearch &&
             matchesLastLogin &&
@@ -655,30 +660,34 @@
           const cardElement = document.createElement("div");
           cardElement.className = `card`;
           cardElement.innerHTML = `
-      <i class="fa${
-        favoriteCards.includes(card.id) ? "s" : "r"
-      } fa-heart favorite" onclick="toggleFavorite(${card.id})"></i>
-      ${card.dropsToday > 15 ? `<div class="warning-badge">WARNING</div>` : ""}
-      <img src="${card.profileAvatar}" alt="${
+            <i class="fa${
+              favoriteCards.includes(card.id) ? "s" : "r"
+            } fa-heart favorite" onclick="toggleFavorite(${card.id})"></i>
+            ${
+              card.dropsToday > 15
+                ? `<div class="warning-badge">WARNING</div>`
+                : ""
+            }
+            <img src="${card.profileAvatar}" alt="${
             card.profileName
           }" class="profile-avatar">
-      <div class="name">
-        ${card.profileName}
-        <i class="fas fa-info-circle info-icon"></i>
-        <div class="tooltip">
-          Steam ID: ${card.steamid}<br>
-          Last Login: ${card.lastLogin}<br>
-          Last Dropped: ${card.lastDropped}<br>
-          Requests Today: ${card.requestsToday}
-        </div>
-      </div>
-      <div class="description">Drops Today: <span class="live-count-drop">${
-        card.dropsToday
-      }</span></div>
-      <a href="https://steamcommunity.com/profiles/${
-        card.steamid
-      }" target="_blank" class="steam-button">View Profile</a>
-    `;
+            <div class="name">
+                ${card.profileName}
+                <i class="fas fa-info-circle info-icon"></i>
+                <div class="tooltip">
+                    Steam ID: ${card.steamid}<br>
+                    Last Login: ${card.lastLogin}<br>
+                    Last Dropped: ${card.lastDropped}<br>
+                    Requests Today: ${card.requestsToday}
+                </div>
+            </div>
+            <div class="description">Drops Today: <span class="live-count-drop">${
+              card.dropsToday
+            }</span></div>
+            <a href="https://steamcommunity.com/profiles/${
+              card.steamid
+            }" target="_blank" class="steam-button">View Profile</a>
+        `;
           cardsContainer.appendChild(cardElement);
         });
       }
