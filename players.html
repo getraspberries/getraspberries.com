@@ -462,7 +462,7 @@
       <div class="item-count" id="item-count">
         Total Players: <span class="live-count">0</span>
       </div>
-      <div class="message">Values are updated in real time</div>
+      <div class="message">Values are updated in realtime</div>
     </div>
 
     <button
@@ -636,14 +636,6 @@
           );
         });
 
-        if (filteredCards.length === 0) {
-          noResultsElement.style.display = "block";
-          clearFiltersBtn.style.display = "block";
-        } else {
-          noResultsElement.style.display = "none";
-          clearFiltersBtn.style.display = "none";
-        }
-
         const favoriteFilteredCards = filteredCards.filter((card) =>
           favoriteCards.includes(card.id)
         );
@@ -652,9 +644,19 @@
         );
 
         const sortedCards = [
-          ...favoriteFilteredCards,
-          ...nonFavoriteFilteredCards,
+          ...favoriteFilteredCards.filter((card) => card.dropsToday > 15),
+          ...favoriteFilteredCards.filter((card) => card.dropsToday <= 15),
+          ...nonFavoriteFilteredCards.filter((card) => card.dropsToday > 15),
+          ...nonFavoriteFilteredCards.filter((card) => card.dropsToday <= 15),
         ];
+
+        if (sortedCards.length === 0) {
+          noResultsElement.style.display = "block";
+          clearFiltersBtn.style.display = "block";
+        } else {
+          noResultsElement.style.display = "none";
+          clearFiltersBtn.style.display = "none";
+        }
 
         sortedCards.forEach((card) => {
           const cardElement = document.createElement("div");
